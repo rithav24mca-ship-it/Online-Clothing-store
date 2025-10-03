@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Home - Aesthetic Clothing</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a, #9333ea); /* deep blue → purple */
+      color: #f9fafb;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: #111827; /* dark slate */
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #fbbf24; /* gold */
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: #f9fafb;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #fbbf24;
+    }
+
+    .navbar .admin {
+      color: #fbbf24;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Dashboard container */
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #fef3c7; /* soft cream */
+      margin-bottom: 30px;
+    }
+
+    /* Cards layout */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      color: #9333ea; /* purple accent */
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1e3a8a; /* deep blue */
+    }
+
+    .quick-links {
+      margin-top: 40px;
+      background: #111827;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .quick-links h3 {
+      color: #fbbf24;
+      margin-bottom: 15px;
+    }
+
+    .quick-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .quick-links ul li {
+      margin: 12px 0;
+    }
+
+    .quick-links ul li a {
+      text-decoration: none;
+      color: #38bdf8; /* bright teal */
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .quick-links ul li a:hover {
+      color: #fbbf24;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">🛍️ Aesthetic Clothing</div>
+    <ul>
+      <li><a href="Homead.html">HOME</a></li>
+      <li><a href="shop.html">SHOP</a></li>
+      <li><a href="odd.html">ORDERS</a></li>
+      <li><a href="Cust.html">CUSTOMERS</a></li>
+      <li><a href="Inv.html">INVOICES</a></li>
+    </ul>
+    <div class="admin">👤 Admin</div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="container">
+    <h2>Welcome back, Admin 🎉</h2>
+
+    <!-- Stats cards -->
+    <div class="cards">
+      <div class="card">
+        <h3>Total Products</h3>
+        <p id="productsCount">120</p>
+      </div>
+      <div class="card">
+        <h3>Total Orders</h3>
+        <p id="ordersCount">350</p>
+      </div>
+      <div class="card">
+        <h3>Pending Orders</h3>
+        <p id="pendingCount">15</p>
+      </div>
+      <div class="card">
+        <h3>Total Customers</h3>
+        <p id="customersCount">89</p>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="quick-links">
+      <h3>Quick Actions ⚡</h3>
+      <ul>
+        <li><a href="shop.html">➕ Add New Product</a></li>
+        <li><a href="odd.html">📦 View Orders</a></li>
+        <li><a href="Cust.html">👥 Manage Customers</a></li>
+        <li><a href="Inv.html">🧾 Generate Invoices</a></li>
+      </ul>
+    </div>
+  </div>
+  
+
+  <script>
+    // Example: values can be dynamically fetched later
+    document.getElementById("productsCount").textContent = 120;
+    document.getElementById("ordersCount").textContent = 350;
+    document.getElementById("pendingCount").textContent = 15;
+    document.getElementById("customersCount").textContent = 89;
+  </script>
+
+</body>
+</html>

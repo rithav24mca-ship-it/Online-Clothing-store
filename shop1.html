@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Your Products</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #fff; }
+
+    .header {
+      background: #d47ed4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+    }
+
+    .back-icon, .cart-icon { font-size: 24px; color: #fff; text-decoration: none; cursor: pointer; }
+    .search-box {
+      flex-grow: 1;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 20px;
+      padding: 5px 10px;
+    }
+    .search-box input { border: none; outline: none; flex-grow: 1; border-radius: 20px; padding: 5px 10px; }
+    .search-box button { background: none; border: none; cursor: pointer; font-size: 18px; }
+
+    .title { text-align: center; font-size: 24px; font-style: italic; margin: 20px 0; }
+
+    .products { display: flex; justify-content: center; gap: 40px; margin: 20px; flex-wrap: wrap; }
+    .product { text-align: center; width: 250px; }
+    .product img { width: 100%; height: 320px; object-fit: cover; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .product h3 { margin: 15px 0 5px; font-size: 18px; font-weight: normal; }
+    .product p { margin-bottom: 10px; font-size: 16px; font-weight: bold; }
+    .buy-btn { background: #d47ed4; color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; }
+    .buy-btn:hover { background: #b14bb1; }
+
+    .footer { background: #d47ed4; text-align: center; padding: 15px; position: fixed; bottom: 0; left: 0; width: 100%; }
+    .footer .home-icon { font-size: 28px; color: white; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="Home.html" class="back-icon">←</a>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search...">
+      <button>🔍</button>
+    </div>
+
+    <a href="Addtocart.html" class="cart-icon">🛒</a>
+  </div>
+
+  <div class="title">Shop your products</div>
+
+  <div class="products">
+    <div class="product">
+      <img src="images/saree.jpg" alt="Indo-Western Sarees">
+      <h3>Indo-Western Sarees</h3>
+      <p>Price: ₹2000</p>
+      <button class="buy-btn" onclick="addToCart('Indo-Western Sarees', 2000, 'images/saree.jpg')">BUY NOW</button>
+    </div>
+
+    <div class="product">
+      <img src="images/tshirt.jpg" alt="T-shirts">
+      <h3>T-shirts</h3>
+      <p>Price: ₹500</p>
+      <button class="buy-btn" onclick="addToCart('T-shirts', 500, 'images/tshirt.jpg')">BUY NOW</button>
+    </div>
+
+    <div class="product">
+      <img src="images/gown.jpg" alt="Wedding Gowns">
+      <h3>Wedding Gowns</h3>
+      <p>Price: ₹3000</p>
+      <button class="buy-btn" onclick="addToCart('Wedding Gowns', 3000, 'images/gown.jpg')">BUY NOW</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="Home.html" class="home-icon">🏠</a>
+  </div>
+
+<script>
+function addToCart(name, price, img) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let existing = cart.find(item => item.name === name);
+  if(existing) { existing.quantity += 1; }
+  else { cart.push({name, price, img, quantity: 1}); }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "Addtocart.html";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoices - Aesthetic Clothing</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#fff0f6; }
+    .navbar { display:flex; justify-content:space-between; align-items:center; padding:15px 40px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .logo { font-size:22px; font-weight:bold; color:#e63971; }
+    .navbar ul { list-style:none; display:flex; gap:20px; margin:0; padding:0; }
+    .navbar ul li a { text-decoration:none; color:#333; font-weight:500; }
+    .navbar ul li a:hover { color:#e63971; }
+    .admin { color:#e63971; font-weight:bold; }
+    .container { max-width:1000px; margin:50px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h2 { text-align:center; color:#e63971; }
+    table { width:100%; border-collapse:collapse; margin-top:20px; }
+    table th, table td { padding:12px; border:1px solid #ddd; text-align:center; }
+    table th { background:#ffd6e8; }
+    .btn { background:#e63971; color:white; padding:8px 14px; border:none; border-radius:6px; cursor:pointer; }
+    .btn:hover { background:#c72c5e; }
+    .form-inline { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px; }
+    .form-inline input, .form-inline select { padding:10px; border:1px solid #ddd; border-radius:6px; flex:1; min-width:160px; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🛍️ Aesthetic Clothing</div>
+    <ul>
+      <li><a href="Homead.html">HOME</a></li>
+      <li><a href="shop.html">SHOP</a></li>
+      <li><a href="odd.html">ORDERS</a></li>
+      <li><a href="Cust.html">CUSTOMERS</a></li>
+      <li><a href="Inv.html">INVOICES</a></li>
+    </ul>
+    <div class="admin">👤 Admin</div>
+  </div>
+
+  <div class="container">
+    <h2>Generate Invoice 🧾</h2>
+    <form id="invoiceForm" class="form-inline">
+      <input type="text" id="invoiceId" placeholder="Invoice ID" required>
+      <input type="text" id="customerName" placeholder="Customer Name" required>
+      <input type="email" id="emailId" placeholder="Email" required>
+      <input type="text" id="productName" placeholder="Product Name" required>
+      <input type="number" id="quantity" placeholder="Quantity" required>
+      <input type="text" id="totalAmount" placeholder="Total Amount" required>
+      <input type="date" id="orderDate" required>
+      <button type="submit" class="btn">Save Invoice</button>
+    </form>
+
+    <table id="invoiceTable">
+      <thead>
+        <tr>
+          <th>Invoice ID</th>
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Total</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const invoiceForm = document.getElementById("invoiceForm");
+    const invoiceTable = document.querySelector("#invoiceTable tbody");
+
+    function loadInvoices() {
+      let invoices = JSON.parse(localStorage.getItem("invoices")) || [];
+      invoiceTable.innerHTML = "";
+      invoices.forEach(i => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${i.invoiceId}</td>
+          <td>${i.customerName}</td>
+          <td>${i.emailId}</td>
+          <td>${i.productName}</td>
+          <td>${i.quantity}</td>
+          <td>${i.totalAmount}</td>
+          <td>${i.orderDate}</td>
+          <td><button class="btn deleteBtn">Delete</button></td>
+        `;
+        invoiceTable.appendChild(row);
+        row.querySelector(".deleteBtn").addEventListener("click", () => deleteInvoice(i.invoiceId));
+      });
+    }
+
+    invoiceForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let invoices = JSON.parse(localStorage.getItem("invoices")) || [];
+      const newInvoice = {
+        invoiceId: document.getElementById("invoiceId").value,
+        customerName: document.getElementById("customerName").value,
+        emailId: document.getElementById("emailId").value,
+        productName: document.getElementById("productName").value,
+        quantity: document.getElementById("quantity").value,
+        totalAmount: document.getElementById("totalAmount").value,
+        orderDate: document.getElementById("orderDate").value
+      };
+      invoices.push(newInvoice);
+      localStorage.setItem("invoices", JSON.stringify(invoices));
+      loadInvoices();
+      invoiceForm.reset();
+    });
+
+    function deleteInvoice(id) {
+      let invoices = JSON.parse(localStorage.getItem("invoices")) || [];
+      invoices = invoices.filter(i => i.invoiceId !== id);
+      localStorage.setItem("invoices", JSON.stringify(invoices));
+      loadInvoices();
+    }
+
+    window.onload = loadInvoices;
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:#c97ac7;display:flex;justify-content:center;align-items:center;height:100vh;}
+.login-container{background:white;display:flex;align-items:center;justify-content:center;padding:30px;border-radius:10px;width:800px;box-shadow:0 6px 18px rgba(0,0,0,0.2);}
+.login-image img{width:250px;height:250px;object-fit:cover;border-radius:50%;margin-right:40px;}
+.login-form{flex:1;text-align:center;}
+.login-form .icon{font-size:50px;margin-bottom:20px;}
+.login-form input{width:80%;padding:12px;margin:12px 0;border:none;border-radius:20px;background:#d79ddc;color:white;font-size:16px;outline:none;text-align:center;}
+.login-form input::placeholder{color:white;opacity:0.8;}
+.login-form button{width:80%;padding:12px;background:#90ee90;border:none;border-radius:20px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;transition:0.3s;}
+.login-form button:hover{background:#76d476;}
+.extra-links{margin-top:15px;font-size:14px;}
+.extra-links a{color:green;text-decoration:none;font-weight:bold;}
+.extra-links a:hover{text-decoration:underline;}
+.message{margin-top:10px;font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-image">
+    <img src="C:\Users\Ritha\OneDrive\Desktop\vertical-portrait-fashion-model-with-lavender-color-clothing-neon-lights-background-generative-ai_719646-12926.jpg" alt="Fashion Model">
+  </div>
+  <div class="login-form">
+    <div class="icon">👤</div>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">LOGIN</button>
+    </form>
+    <div class="extra-links">
+      <p>Not registered? <a href="Register.html">Create an account</a></p>
+    </div>
+    <div class="message" id="message"></div>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+
+  if(user){
+    localStorage.setItem("loggedInUser", user.username);
+    message.style.color = "green";
+    message.textContent = "✅ Login successful! Redirecting...";
+    setTimeout(()=>window.location.href="d1.html", 1000);
+  } else {
+    message.style.color = "red";
+    message.textContent = "❌ Invalid username or password!";
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customers - Aesthetic Clothing</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#ffeef3; }
+    .navbar { display:flex; justify-content:space-between; align-items:center; padding:15px 40px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .logo { font-size:22px; font-weight:bold; color:#ff2a6d; }
+    .navbar ul { list-style:none; display:flex; gap:20px; margin:0; padding:0; }
+    .navbar ul li a { text-decoration:none; color:#333; font-weight:500; }
+    .navbar ul li a:hover { color:#ff2a6d; }
+    .admin { color:#ff2a6d; font-weight:bold; }
+    .container { max-width:1000px; margin:50px auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h2 { text-align:center; color:#ff2a6d; }
+    table { width:100%; border-collapse:collapse; margin-top:20px; }
+    table th, table td { padding:12px; border:1px solid #ddd; text-align:center; }
+    table th { background:#ffe6ef; }
+    .btn { background:#ff2a6d; color:white; padding:8px 14px; border:none; border-radius:6px; cursor:pointer; }
+    .btn:hover { background:#e01d5d; }
+    .form-inline { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+    .form-inline input { padding:10px; border:1px solid #ddd; border-radius:6px; flex:1; min-width:180px; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🛍️ Aesthetic Clothing</div>
+    <ul>
+      <li><a href="Homead.html">HOME</a></li>
+      <li><a href="shop.html">SHOP</a></li>
+      <li><a href="odd.html">ORDERS</a></li>
+      <li><a href="Cust.html">CUSTOMERS</a></li>
+      <li><a href="Inv.html">INVOICES</a></li>
+    </ul>
+    <div class="admin">👤 Admin</div>
+  </div>
+
+  <div class="container">
+    <h2>Manage Customers 👥</h2>
+    <form id="customerForm" class="form-inline">
+      <input type="text" id="customerName" placeholder="Customer Name" required>
+      <input type="email" id="customerEmail" placeholder="Email" required>
+      <input type="text" id="customerPhone" placeholder="Phone" required>
+      <button type="submit" class="btn">Add Customer</button>
+    </form>
+
+    <table id="customerTable">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const customerForm = document.getElementById("customerForm");
+    const customerTable = document.querySelector("#customerTable tbody");
+
+    function loadCustomers() {
+      let customers = JSON.parse(localStorage.getItem("customers")) || [];
+      customerTable.innerHTML = "";
+      customers.forEach(c => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${c.id}</td>
+          <td>${c.name}</td>
+          <td>${c.email}</td>
+          <td>${c.phone}</td>
+          <td><button class="btn deleteBtn">Delete</button></td>
+        `;
+        customerTable.appendChild(row);
+        row.querySelector(".deleteBtn").addEventListener("click", () => deleteCustomer(c.id));
+      });
+    }
+
+    customerForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let customers = JSON.parse(localStorage.getItem("customers")) || [];
+      const newCustomer = {
+        id: customers.length ? customers[customers.length - 1].id + 1 : 1,
+        name: document.getElementById("customerName").value,
+        email: document.getElementById("customerEmail").value,
+        phone: document.getElementById("customerPhone").value
+      };
+      customers.push(newCustomer);
+      localStorage.setItem("customers", JSON.stringify(customers));
+      loadCustomers();
+      customerForm.reset();
+    });
+
+    function deleteCustomer(id) {
+      let customers = JSON.parse(localStorage.getItem("customers")) || [];
+      customers = customers.filter(c => c.id !== id);
+      localStorage.setItem("customers", JSON.stringify(customers));
+      loadCustomers();
+    }
+
+    window.onload = loadCustomers;
+  </script>
+</body>
+</html>

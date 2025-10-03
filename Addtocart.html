@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family: Arial,sans-serif;}
+  body{background:#fff;padding-bottom:80px;}
+  .header{background:#d47ed4;display:flex;align-items:center;justify-content:space-between;padding:15px 30px;}
+  .back-icon{font-size:24px;color:#fff;text-decoration:none;}
+  .title{text-align:center;font-size:24px;font-style:italic;margin:20px 0;color:#333;}
+  .cart-container{max-width:900px;margin:20px auto;display:flex;flex-direction:column;gap:20px;}
+  .cart-item{display:flex;align-items:center;gap:15px;background:#f9f9f9;padding:15px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+  .cart-item img{width:120px;height:120px;object-fit:cover;border-radius:8px;}
+  .item-details{flex-grow:1;}
+  .item-details h3{font-size:18px;margin-bottom:5px;}
+  .item-details p{margin-bottom:5px;}
+  .item-details input{width:50px;padding:5px;text-align:center;border-radius:5px;border:1px solid #ccc;}
+  .item-total{font-weight:bold;margin-right:15px;}
+  .remove-btn{background:#dc3545;color:#fff;border:none;padding:8px 12px;border-radius:5px;cursor:pointer;}
+  .remove-btn:hover{background:#c82333;}
+  .actions{text-align:right;margin-top:20px;max-width:900px;margin-left:auto;margin-right:auto;}
+  .checkout-btn,.clear-btn{background:#d47ed4;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;margin-left:10px;}
+  .checkout-btn:hover,.clear-btn:hover{background:#b14bb1;}
+  .footer{background:#d47ed4;text-align:center;padding:15px;position:fixed;bottom:0;left:0;width:100%;}
+  .footer a{font-size:28px;color:#fff;text-decoration:none;}
+</style>
+</head>
+<body>
+  <div class="header">
+    <a href="shop1.html" class="back-icon">←</a>
+    <span class="title">Your Cart</span>
+    <a href="Addtocart.html" class="cart-icon">🛒</a>
+  </div>
+
+  <div class="cart-container" id="cartContainer">
+    <p id="emptyMsg" style="text-align:center;color:#777;">Your cart is empty.</p>
+  </div>
+
+  <div class="actions">
+    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  </div>
+
+  <div class="footer">
+    <a href="shop.html">🏠</a>
+  </div>
+
+<script>
+function loadCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let container = document.getElementById("cartContainer");
+  let emptyMsg = document.getElementById("emptyMsg");
+  container.innerHTML = "";
+  if(cart.length === 0){ emptyMsg.style.display="block"; return; } 
+  else { emptyMsg.style.display="none"; }
+
+  cart.forEach((item,index)=>{
+    let div=document.createElement("div");
+    div.className="cart-item";
+    div.innerHTML=`
+      <img src="${item.img}" alt="${item.name}">
+      <div class="item-details">
+        <h3>${item.name}</h3>
+        <p>Price: ₹${item.price}</p>
+        <p>Qty: <input type="number" value="${item.quantity}" min="1" onchange="updateQty(${index}, this.value)"></p>
+      </div>
+      <div class="item-total">₹${item.price*item.quantity}</div>
+      <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function removeItem(index){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  cart.splice(index,1);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  loadCart();
+}
+
+function clearCart(){
+  localStorage.removeItem("cart");
+  loadCart();
+}
+
+function updateQty(index, value){
+  let cart=JSON.parse(localStorage.getItem("cart"))||[];
+  cart[index].quantity = parseInt(value);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  loadCart();
+}
+
+function checkout(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if(cart.length===0){ alert("Cart is empty!"); return; }
+  window.location.href="shipping.html";
+}
+
+window.onload=loadCart;
+</script>
+</body>
+</html>

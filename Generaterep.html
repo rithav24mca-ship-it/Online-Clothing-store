@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice</title>
+<style>
+  body { margin:0; font-family:Arial,sans-serif; background:#f4f4f4; display:flex; justify-content:center; padding:20px; }
+  .invoice-box { background:white; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.2); width:90%; max-width:900px; }
+  h1 { text-align:center; color:#a847a6; margin-bottom:20px; }
+  .shipping-info { background:#f0f0f0; padding:15px; border-radius:8px; margin-bottom:20px; }
+  table { width:100%; border-collapse:collapse; margin-bottom:20px; }
+  table, th, td { border:1px solid #ddd; }
+  th, td { padding:12px; text-align:left; }
+  th { background:#d47ed4; color:white; }
+  .total-row td { font-weight:bold; }
+  .print-btn { padding:12px 25px; background:#a847a6; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; }
+  .print-btn:hover { background:#922e90; }
+</style>
+</head>
+<body>
+<div class="invoice-box">
+  <h1>🧾 Invoice</h1>
+  <div class="shipping-info" id="shippingInfo"></div>
+  <table id="invoiceTable">
+    <thead>
+      <tr><th>Product</th><th>Price (₹)</th><th>Quantity</th><th>Total (₹)</th></tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <tr class="total-row"><td colspan="3">Grand Total</td><td id="grandTotal"></td></tr>
+    </tfoot>
+  </table>
+  <button class="print-btn" onclick="window.print()">Print Invoice</button>
+</div>
+
+<script>
+window.onload = function(){
+  let orderData = JSON.parse(localStorage.getItem("orderData"));
+  if(!orderData){
+    document.body.innerHTML="<h2 style='color:red;text-align:center;margin-top:50px;'>No order data found!</h2>";
+    return;
+  }
+
+  let shippingDiv = document.getElementById("shippingInfo");
+  shippingDiv.innerHTML = `
+    <strong>Customer Name:</strong> ${orderData.name}<br>
+    <strong>Email:</strong> ${orderData.email}<br>
+    <strong>Phone:</strong> ${orderData.phone}<br>
+    <strong>Address:</strong> ${orderData.address}, ${orderData.state}, ${orderData.country} - ${orderData.zip}<br>
+    <strong>Date:</strong> ${orderData.date}<br>
+  `;
+
+  let tbody = document.querySelector("#invoiceTable tbody");
+  let grandTotal = 0;
+  orderData.cart.forEach(item=>{
+    let total = item.price*item.quantity;
+    grandTotal += total;
+    let tr = document.createElement("tr");
+    tr.innerHTML = `<td>${item.name}</td><td>₹${item.price}</td><td>${item.quantity}</td><td>₹${total}</td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("grandTotal").textContent = "₹"+grandTotal;
+};
+</script>
+</body>
+</html>

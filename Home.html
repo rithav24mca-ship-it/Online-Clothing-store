@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic Clothing Store</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      /* Background image for the whole page */
+      background: url("https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=2000&q=80") 
+                  no-repeat center/cover fixed;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(31,31,31,0.85); /* semi-transparent for readability */
+      color: white;
+    }
+    .navbar h1 {
+      font-size: 22px;
+      letter-spacing: 2px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #ff6969; }
+
+    /* Hero Section */
+    .hero {
+      height: 90vh;
+      background: url("https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?auto=format&fit=crop&w=1950&q=80") 
+                  no-repeat center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 80px;
+      color: white;
+    }
+    .hero-text {
+      background: rgba(0,0,0,0.55);
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 400px;
+    }
+    .hero-text h2 { font-size: 36px; margin-bottom: 15px; }
+    .hero-text p { margin-bottom: 25px; line-height: 1.5; }
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin-right: 10px;
+      background: #ff6969;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: #e85c5c; }
+
+    /* Featured Section */
+    .featured {
+      padding: 60px 80px;
+      text-align: center;
+      background: rgba(255,255,255,0.9); /* adds clarity on top of background */
+      border-radius: 12px;
+      margin: 40px;
+    }
+    .featured h2 { font-size: 28px; margin-bottom: 40px; }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+    .product {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+      background: white;
+    }
+    .product img { width: 100%; display: block; }
+    .product:hover { transform: scale(1.05); }
+    .product h3 { margin: 15px; font-size: 18px; }
+
+    /* Footer */
+    .footer {
+      background: rgba(31,31,31,0.9);
+      color: #aaa;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+    .footer a { color: #ff6969; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Aesthetic Clothing</h1>
+    <div class="nav-links">
+      <a href="Home.html">Home</a>
+      <a href="Login.html">Login</a>
+      <a href="Register.html">Register</a>
+      <a href="About.html">About us</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Elevate Your Everyday Style</h2>
+      <p>Discover modern, minimal, and timeless clothing pieces designed to make you feel confident.</p>
+      
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured">
+    <h2>Featured Collections</h2>
+    <div class="products">
+      <div class="product">
+        <img src="C:\Users\Ritha\OneDrive\Desktop\Protea-3.webp" alt="">
+        <h3>Wedding Gowns</h3>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Ritha\OneDrive\Desktop\grey-pink-banarasi-silk-traditional-lehenga-choli-3705.jpg" alt="">
+        <h3>Lehenga</h3>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Ritha\OneDrive\Desktop\sky-blue-indowestern-saree-n-pant-set-iwssaf22-u.jpg" alt="">
+        <h3>Indo western Sarees</h3>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Ritha\OneDrive\Desktop\d3cf803f9480c4f6dd324fb719a07896.jpg" alt="">
+        <h3>T-shirts</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2025 Aesthetic Clothing. Made with ❤. | <a href="#">Privacy Policy</a></p>
+  </div>
+
+</body>
+</html>

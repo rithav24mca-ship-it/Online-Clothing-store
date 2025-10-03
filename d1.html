@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:#e0ffe0;display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;}
+.dashboard-box{background:white;padding:40px;border-radius:15px;width:400px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);}
+h1{color:#4CAF50;margin-bottom:20px;}
+button{padding:12px 25px;background:#ff7070;color:white;border:none;border-radius:20px;font-size:16px;cursor:pointer;transition:0.3s;}
+button:hover{background:#e65c5c;}
+</style>
+</head>
+<body>
+
+<div class="dashboard-box">
+<h1>Welcome, <span id="username"></span>! 🎉</h1>
+<p>You have successfully logged in.</p>
+<button onclick="shop()">SHOP NOW</button>
+</div>
+
+<script>
+const loggedInUser = localStorage.getItem("loggedInUser");
+if(!loggedInUser){
+  window.location.href = "shop1.html";
+} else {
+  document.getElementById("username").textContent = loggedInUser;
+}
+
+function shop(){
+  localStorage.removeItem("loggedInUser");
+  window.location.href = "shop1.html";
+}
+</script>
+
+</body>
+</html>

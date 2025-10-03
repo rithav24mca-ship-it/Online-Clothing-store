@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',sans-serif;background:#c97ac7;display:flex;justify-content:center;align-items:center;height:100vh;}
+.register-container{background:white;display:flex;align-items:center;justify-content:center;padding:30px;border-radius:10px;width:900px;box-shadow:0 6px 18px rgba(0,0,0,0.2);position:relative;}
+.back-icon{position:absolute;top:15px;left:15px;font-size:24px;cursor:pointer;color:#333;text-decoration:none;}
+.back-icon:hover{color:#c97ac7;}
+.register-image img{width:250px;height:250px;object-fit:cover;border-radius:50%;margin-right:40px;}
+.register-form{flex:1;text-align:center;}
+.register-form h2{font-size:28px;color:#c97ac7;margin-bottom:20px;font-weight:bold;}
+.register-form .icon{font-size:50px;margin-bottom:20px;}
+.register-form input{width:80%;padding:12px;margin:12px 0;border:none;border-radius:20px;background:#d79ddc;color:white;font-size:16px;outline:none;text-align:center;}
+.register-form input::placeholder{color:white;opacity:0.8;}
+.register-form button{width:80%;padding:12px;background:#90ee90;border:none;border-radius:20px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;transition:0.3s;}
+.register-form button:hover{background:#76d476;}
+.extra-links{margin-top:15px;font-size:14px;}
+.extra-links a{color:green;text-decoration:none;font-weight:bold;}
+.extra-links a:hover{text-decoration:underline;}
+.message{margin-top:10px;font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="register-container">
+  <a href="Login.html" class="back-icon">←</a>
+  <div class="register-image">
+    <img src="C:\Users\Ritha\OneDrive\Desktop\5d2b5e797f1a61718cb8e7b5cdf1ba67.jpg" alt="Fashion Model">
+  </div>
+  <div class="register-form">
+    <h2>Register Now</h2>
+    <div class="icon">📝</div>
+    <form id="registerForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="submit">REGISTER</button>
+    </form>
+    <div class="extra-links">
+      <p>Already have an account? <a href="Login.html">Login here</a></p>
+    </div>
+    <div class="message" id="message"></div>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if(password !== confirmPassword){
+    message.style.color = "red";
+    message.textContent = "❌ Passwords do not match!";
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  if(users.find(u => u.username.toLowerCase() === username.toLowerCase())){
+    message.style.color = "red";
+    message.textContent = "⚠ Username already exists!";
+    return;
+  }
+
+  users.push({username, email, password});
+  localStorage.setItem("users", JSON.stringify(users));
+
+  message.style.color = "green";
+  message.textContent = "✅ Registered successfully! Redirecting to login...";
+  setTimeout(()=>window.location.href="Login.html", 1500);
+});
+</script>
+
+</body>
+</html>
